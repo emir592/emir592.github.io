@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Mobil Uyumlu Kaçan Buton</title>
+    <title>BENİMLE BARIŞIRMISIN?</title>
     <style>
         * {
             box-sizing: border-box;
@@ -14,6 +14,9 @@
             margin: 0;
             padding: 30px;
             background-color: #f0f0f0;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
         }
 
         #metin {
@@ -30,6 +33,7 @@
             cursor: pointer;
             position: absolute;
             transition: top 0.3s, left 0.3s;
+            z-index: 2;
         }
 
         #evet {
@@ -59,7 +63,7 @@
 </head>
 <body>
 
-    <h1>Benimle BARIŞIRMISIN?</h1>
+    <h1>BENİMLE BARIŞIRMISIN?</h1>
 
     <br><br>
 
@@ -67,11 +71,11 @@
     <button id="hayir">Hayır</button>
 
     <script>
+        const evetBtn = document.getElementById("evet");
         const hayirBtn = document.getElementById("hayir");
 
-        // Hem tıklama hem dokunma için tek event listener yeterli
-        hayirBtn.addEventListener("click", (e) => {
-            e.preventDefault(); // Form olaylarını engelle
+        // Kaçırma fonksiyonu: hem mobil hem masaüstü için geçerli
+        function kacirButonu() {
             const maxWidth = window.innerWidth - hayirBtn.offsetWidth;
             const maxHeight = window.innerHeight - hayirBtn.offsetHeight;
 
@@ -80,15 +84,24 @@
 
             hayirBtn.style.left = randomX + "px";
             hayirBtn.style.top = randomY + "px";
+        }
+
+        // Evet butonuna tıklanırsa mesaj göster
+        evetBtn.addEventListener("click", () => {
+            alert("Teşekkürler! 😊");
         });
 
-        // Başlangıçta butonları sabit bir yere yerleştir
-        const evetBtn = document.getElementById("evet");
+        // Hayır butonuna tıklanırsa (mobil ve masaüstü)
+        hayirBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            kacirButonu();
+        });
 
+        // Sayfa yüklendiğinde buton konumları
         window.onload = () => {
-            evetBtn.style.left = "40%";
+            evetBtn.style.left = "25%";
             evetBtn.style.top = "300px";
-            hayirBtn.style.left = "50%";
+            hayirBtn.style.left = "55%";
             hayirBtn.style.top = "300px";
         };
     </script>
