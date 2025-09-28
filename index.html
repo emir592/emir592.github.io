@@ -1,120 +1,101 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İlginç Bilgi Jeneratörü</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #f9d423, #ff4e50);
-            color: #fff;
-            text-align: center;
-            padding: 50px 20px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Arama</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-        .container {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+  body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+  }
 
-        #fact {
-            font-size: 22px;
-            margin: 30px 0;
-        }
+  h1 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2rem;
+  }
 
-        button, .share-button {
-            background-color: #fff;
-            color: #ff4e50;
-            border: none;
-            padding: 15px 25px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s ease;
-            margin: 10px;
-            text-decoration: none;
-            display: inline-block;
-        }
+  .search-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-        button:hover, .share-button:hover {
-            background-color: #f1f1f1;
-        }
+  .search-box {
+    display: flex;
+    width: 100%;
+  }
 
-        footer {
-            margin-top: 50px;
-            font-size: 14px;
-        }
+  input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px 0 0 8px;
+    border: none;
+    font-size: 16px;
+  }
 
-        .share-container {
-            margin-top: 20px;
-        }
-    </style>
+  button {
+    padding: 12px 20px;
+    border-radius: 0 8px 8px 0;
+    border: none;
+    background-color: #ff4b2b;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background-color: #ff6f61;
+  }
+
+  @media (max-width: 600px) {
+    input[type="text"] {
+      font-size: 14px;
+      padding: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 14px;
+    }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>İlginç Bilgi Jeneratörü</h1>
-        <p id="fact">👀 Bilgi için butona tıkla!</p>
-        <button onclick="generateFact()">Yeni Bilgi Göster</button>
 
-        <div class="share-container" id="shareButtons" style="display: none;">
-            <a id="twitterShare" class="share-button" target="_blank">Twitter’da Paylaş</a>
-            <a id="whatsappShare" class="share-button" target="_blank">WhatsApp’ta Paylaş</a>
-        </div>
-    </div>
+<h1>Google Arama</h1>
+<div class="search-container">
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Aramak istediğiniz kelimeyi yazın">
+    <button onclick="searchGoogle()">Ara</button>
+  </div>
+</div>
 
-    <footer>
-        &copy; 2025 BilgiKutusu | Hazırlayan: Emir Donar
-    </footer>
+<script>
+function searchGoogle() {
+    const query = document.getElementById('search').value.trim();
+    if (!query) return;
 
-    <script>
-        const facts = [
-            "Bir karıncanın beyni yaklaşık 250.000 nörona sahiptir.",
-            "Bir gün, Mars’ta 24 saat 39 dakika sürer.",
-            "Balıklar boğulabilir — eğer yeterli oksijen yoksa.",
-            "Deniz yıldızlarının beyni yoktur.",
-            "Japonya’da temizlik robotları okullarda öğrencilere eşlik eder.",
-            "Bir insanın DNA'sı %60 oranında muzla aynıdır.",
-            "Satürn o kadar hafiftir ki, suda yüzebilir.",
-            "Bir salyangozun 14.000'e kadar dişi olabilir.",
-            "Dünyada bugüne kadar 108 milyar insan yaşamıştır.",
-            "Kutup ayılarının derisi aslında siyahtır, tüyleri ise şeffaftır.",
-            "Dünyadaki ilk bilgisayar 30 ton ağırlığındaydı.",
-            "Bir dil bir dakikada 20 kez kendini temizler.",
-            "Yarasalar daima sola dönerler.",
-            "Bir limon, bir çilekten daha fazla şeker içerir.",
-            "Zürafaların ses telleri yoktur.",
-            "Kedilerin beyni, insanlarınkiyle %90 oranında benzerdir.",
-            "Einstein, konuşmaya 4 yaşında başladı.",
-            "Venüs, kendi etrafında Güneş’e göre daha yavaş döner.",
-            "Bir kalp, günde yaklaşık 100.000 kez atar.",
-            "İnsan gözü 10 milyon farklı rengi ayırt edebilir.",
-            "Soğan doğradığında ağlamanın nedeni, sülfür gazıdır.",
-            "Deniz atları tek eşlidir ve eşleriyle dans ederler.",
-            "Ay’da yürümek, Dünya’da koşmaktan daha kolaydır.",
-            "Kelebekler ayaklarıyla tat alırlar.",
-            "Beyin, vücudun %2’sini oluşturur ama enerjinin %20’sini kullanır.",
-            "Kirpiler yüzebilir.",
-            "Bir deve kuşunun gözü beyninden büyüktür.",
-            "Karıncalar uyumaz.",
-            "Yıldızların ışığı bize ulaşana kadar milyonlarca yıl geçebilir.",
-            "Uzayda ses iletilemez çünkü ortamda hava yoktur."
-        ];
+    const googleUrl = "https://www.google.com/search?q=${encodeURIComponent(query)}";
+    window.open(googleUrl, '_blank');
+}
+</script>
 
-        function generateFact() {
-            const randomIndex = Math.floor(Math.random() * facts.length);
-            const selectedFact = "💡 " + facts[randomIndex];
-            document.getElementById("fact").innerText = selectedFact;
-
-            const encodedFact = encodeURIComponent(selectedFact + " 👉 https://doeda.com");
-            document.getElementById("twitterShare").href = `https://twitter.com/intent/tweet?text=${encodedFact}`;
-            document.getElementById("whatsappShare").href = `https://wa.me/?text=${encodedFact}`;
-
-            document.getElementById("shareButtons").style.display = "block";
-        }
-    </script>
 </body>
 </html>
